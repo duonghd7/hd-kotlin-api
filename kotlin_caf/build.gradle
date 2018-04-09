@@ -1,0 +1,94 @@
+buildscript {
+	ext {
+		kotlin_cafVersion = [
+				buildGradle          : "3.0.1",
+				retrolambda          : "3.2.5",
+				compileSdkVersion    : 26,
+				buildToolsVersion    : "26.0.1",
+				minSdkVersion        : 16,
+				targetSdkVersion     : 26,
+				gson                 : "2.8.0",
+				okhttp               : "3.8.1",
+				retrofit             : "2.1.0",
+				retrofitConverterGson: "2.1.0",
+				retrofitAdapterRxjava: "2.1.0",
+				rxAndroid            : "1.2.0",
+				rxJava               : "1.1.5",
+				dagger               : "2.0",
+				daggerCompiler       : "2.0",
+				jsr250Api            : "1.0",
+				threetenabp          : "1.0.5",
+				hawk                 : "1.23",
+				cicerone             : "1.2.1",
+				logentries           : "logentries-android-4.4.1",
+				eventbus             : "3.0.0"
+		]
+	}
+
+	repositories {
+		jcenter()
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath "com.android.tools.build:gradle:${kotlin_cafVersion.buildGradle}"
+		classpath "me.tatarka:gradle-retrolambda:${kotlin_cafVersion.retrolambda}"
+	}
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+	compileSdkVersion kotlin_cafVersion.compileSdkVersion
+
+	defaultConfig {
+		minSdkVersion kotlin_cafVersion.minSdkVersion
+		targetSdkVersion kotlin_cafVersion.targetSdkVersion
+		versionCode 1
+		versionName "1.0"
+	}
+
+	buildTypes {
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+}
+
+dependencies {
+	compile fileTree(dir: 'libs', include: ['*.jar'])
+	compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+	//Rest client
+	compile "com.google.code.gson:gson:${kotlin_cafVersion.gson}"
+	compile "com.squareup.okhttp3:okhttp:${kotlin_cafVersion.okhttp}"
+	compile "com.squareup.retrofit2:retrofit:${kotlin_cafVersion.retrofit}"
+	compile "com.squareup.retrofit2:converter-gson:${kotlin_cafVersion.retrofitConverterGson}"
+	compile "com.squareup.retrofit2:adapter-rxjava:${kotlin_cafVersion.retrofitAdapterRxjava}"
+	//Async
+	compile "io.reactivex:rxandroid:${kotlin_cafVersion.rxAndroid}"
+	compile "io.reactivex:rxjava:${kotlin_cafVersion.rxJava}"
+	//Dagger
+	kapt "com.google.dagger:dagger-compiler:${kotlin_cafVersion.daggerCompiler}"
+	compile "com.google.dagger:dagger:${kotlin_cafVersion.dagger}"
+	provided 'org.glassfish:javax.annotation:10.0-b28'
+	provided "javax.annotation:jsr250-api:${kotlin_cafVersion.jsr250Api}"
+	//Date times
+	compile "com.jakewharton.threetenabp:threetenabp:${kotlin_cafVersion.threetenabp}"
+	//Logs
+	compile "com.github.LogentriesCommunity:le_android:${kotlin_cafVersion.logentries}"
+	//Pref storage
+	compile "com.github.orhanobut:hawk:${kotlin_cafVersion.hawk}"
+	//Cicerone
+	compile "ru.terrakok.cicerone:cicerone:${kotlin_cafVersion.cicerone}"
+	//Messages
+	compile "org.greenrobot:eventbus:${kotlin_cafVersion.eventbus}"
+}
