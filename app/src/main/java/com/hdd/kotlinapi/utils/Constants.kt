@@ -6,5 +6,6 @@ package com.hdd.kotlinapi.utils
  */
 
 object Constants {
-    val KEY_USER_AUTH = "feed_me_user"
+    val KEY_USER_AUTH = "KOTLIN_API_USER"
+    val UNIQUE_KEY_DEVICE_ID = "GCM_TOKEN"
 }

@@ -8,8 +8,8 @@ import com.hdd.kotlin_caf.models.ServiceResultError
  */
 
 
-open class ApiThrowable(val errors: List<ServiceResultError>) : Throwable() {
-    fun firstError(): ServiceResultError {
+open class ApiThrowable(private val errors: List<ServiceResultError>) : Throwable() {
+    private fun firstError(): ServiceResultError {
         return errors[0]
     }
 

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix,KeyboardInaccessibleWidget,ContentDescription,HardcodedText,SpUsage,
+    RtlHardcoded,RelativeOverlap,UselessParent,RtlSymmetry,DisableBaselineAlignment">
+
+    <EditText
+        android:id="@+id/fragment_sign_in_edt_username"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/bg_edittext_white"
+        android:hint="Username"
+        android:imeOptions="actionNext"
+        android:inputType="text"
+        android:maxLength="50"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:text="duonghd"
+        android:textColor="#030d35"
+        android:textCursorDrawable="@drawable/bg_cursor_1x5_black_blue"
+        android:textSize="13dp"/>
+
+    <EditText
+        android:id="@+id/fragment_sign_in_edt_password"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_edittext_white"
+        android:hint="Password"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:maxLength="50"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:text="123456"
+        android:textColor="#030d35"
+        android:textCursorDrawable="@drawable/bg_cursor_1x5_black_blue"
+        android:textSize="13dp"/>
+
+    <TextView
+        android:id="@+id/fragment_sign_in_tv_sign_in"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_btn_black_blue"
+        android:clickable="true"
+        android:gravity="center"
+        android:text="SIGN IN"
+        android:textColor="@android:color/white"
+        android:textSize="13dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/fragment_sign_in_tv_sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="150dp"
+        android:clickable="true"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Register new account"
+        android:textColor="@drawable/bg_text_color_click_blue"
+        android:textSize="13dp"/>
+</LinearLayout>

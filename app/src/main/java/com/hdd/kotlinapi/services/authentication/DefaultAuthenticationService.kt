@@ -15,8 +15,8 @@ import rx.Observable
  */
 
 open class DefaultAuthenticationService(
-        val networkProvider: NetworkProvider,
-        val restAuthenticationService: RestAuthenticationService,
+        private val networkProvider: NetworkProvider,
+        private val restAuthenticationService: RestAuthenticationService,
         authenticationManagerConfiguration: AuthenticationManagerConfiguration)
     : AbstractAuthenticationManager<User, LoginRequestBody, LoginSocialRequestBody>(authenticationManagerConfiguration),
         AuthenticationService {

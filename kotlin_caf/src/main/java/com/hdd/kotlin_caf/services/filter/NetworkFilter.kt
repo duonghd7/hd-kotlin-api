@@ -16,7 +16,7 @@ open class NetworkFilter<T>(val networkProvider: NetworkProvider) : Filter<Throw
     override fun execute(source: Throwable): Observable<T> {
         return if (!networkProvider.isNetworkAvailable()) {
             Observable.error(StaticApiThrowable.from(ErrorCodes.NETWORK_NOT_AVAILABLE_ERROR,
-                    "Network is not available"))
+                    "Network is not available!"))
         } else Observable.error(source)
     }
 }

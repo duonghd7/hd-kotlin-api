@@ -3,10 +3,13 @@ package com.hdd.kotlinapi.utils
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.support.annotation.UiThread
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import com.hdd.kotlinapi.utils.Constants.UNIQUE_KEY_DEVICE_ID
+import com.orhanobut.hawk.Hawk
 
 /**
  * Created on 4/9/2018.
@@ -52,5 +55,17 @@ object AppUtils {
                         activity.currentFocus!!.clearFocus()
                     })
         })
+    }
+
+    /*
+    * get device token
+    * */
+    @UiThread
+    fun getDeviceToken(): String {
+        if (Hawk.isBuilt() && Hawk.contains(UNIQUE_KEY_DEVICE_ID)) {
+            return Hawk.get(UNIQUE_KEY_DEVICE_ID)
+        } else {
+            return ""
+        }
     }
 }

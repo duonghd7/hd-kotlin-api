@@ -16,11 +16,19 @@
 
         <activity android:name=".domain.MainActivity_">
 
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>-->
+        </activity>
+
+        <activity android:name=".domain.retrofit.RetrofitActivity_"/>
+        <activity android:name=".domain.login.LoginActivity_">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".domain.retrofit.RetrofitActivity_"/>
+
     </application>
 </manifest>

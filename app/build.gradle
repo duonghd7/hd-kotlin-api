@@ -1,8 +1,16 @@
+plugins {
+    id 'com.onesignal.androidsdk.onesignal-gradle-plugin' version '0.8.1'
+}
+
 apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 26
@@ -12,7 +20,12 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                onesignal_app_id                : '3f49b3f5-5bad-426b-9fc0-a75af95dbfb5',
+                onesignal_google_project_number : '144539400347'
+        ]
     }
     buildTypes {
         debug {
@@ -36,8 +49,6 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-
-apply plugin: "kotlin-kapt"
 
 def AAVersion = '4.4.0'
 def daggerVersion = '2.11'
@@ -63,4 +74,8 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     implementation "com.google.dagger:dagger:$daggerVersion"
     provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    implementation "com.android.support:multidex:1.0.3"
+    implementation "com.onesignal:OneSignal:3.8.4"
+    implementation "com.google.code.gson:gson:2.8.0"
 }

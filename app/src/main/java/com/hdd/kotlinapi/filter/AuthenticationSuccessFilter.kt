@@ -10,7 +10,7 @@ import rx.Observable
  * @author duonghd
  */
 
-open class AuthenticationSuccessFilter(val authenticationService: AuthenticationService) : OutputFilter<User, User> {
+open class AuthenticationSuccessFilter(private val authenticationService: AuthenticationService) : OutputFilter<User, User> {
 
     override fun execute(inputObservable: Observable<User>): Observable<User> {
         return inputObservable.flatMap { t ->
