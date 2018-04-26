@@ -12,7 +12,7 @@ import dagger.Component
  */
 
 @ApplicationScope
-@Component(modules = arrayOf(ApplicationModule::class))
+@Component(modules = [(ApplicationModule::class)])
 interface ApplicationComponent {
     fun networkProvide(): NetworkProvider
 

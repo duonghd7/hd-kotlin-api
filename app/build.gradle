@@ -1,5 +1,5 @@
 plugins {
-    id 'com.onesignal.androidsdk.onesignal-gradle-plugin' version '0.8.1'
+	id 'com.onesignal.androidsdk.onesignal-gradle-plugin' version '0.8.1'
 }
 
 apply plugin: 'com.android.application'
@@ -13,41 +13,61 @@ apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 26
-    defaultConfig {
-        applicationId "com.hdd.kotlinapi"
-        minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 1
-        versionName "1.0"
-        multiDexEnabled true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [
-                onesignal_app_id                : '3f49b3f5-5bad-426b-9fc0-a75af95dbfb5',
-                onesignal_google_project_number : '144539400347'
-        ]
-    }
-    buildTypes {
-        debug {
-            minifyEnabled false
-            debuggable true
-            jniDebuggable true
-            renderscriptDebuggable false
-            zipAlignEnabled true
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            debuggable false
-            jniDebuggable false
-            renderscriptDebuggable false
-            zipAlignEnabled true
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+	compileSdkVersion 26
+
+	defaultConfig {
+		applicationId "com.hdd.kotlinapi"
+		minSdkVersion 19
+		targetSdkVersion 26
+		versionCode 1
+		versionName "1.0"
+		multiDexEnabled true
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+	}
+
+	buildTypes {
+		debug {
+			minifyEnabled false
+			debuggable true
+			jniDebuggable true
+			renderscriptDebuggable false
+			zipAlignEnabled true
+		}
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			debuggable false
+			jniDebuggable false
+			renderscriptDebuggable false
+			zipAlignEnabled true
+		}
+	}
+
+	flavorDimensions "default"
+	productFlavors {
+		DEV {
+			dimension "default"
+			//OneSignal DEV
+			manifestPlaceholders = [
+					onesignal_app_id               : '3f49b3f5-5bad-426b-9fc0-a75af95dbfb5',
+					onesignal_google_project_number: '144539400347'
+			]
+		}
+
+		LIVE {
+			dimension "default"
+			//OneSignal LIVE
+			manifestPlaceholders = [
+					onesignal_app_id               : '3f49b3f5-5bad-426b-9fc0-a75af95dbfb5',
+					onesignal_google_project_number: '144539400347'
+			]
+		}
+	}
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
 }
 
 def AAVersion = '4.4.0'
@@ -58,24 +78,29 @@ kapt {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+	implementation 'com.android.support:appcompat-v7:26.1.0'
+	implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+	testImplementation 'junit:junit:4.12'
+	androidTestImplementation 'com.android.support.test:runner:1.0.1'
+	androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    compile project(':kotlin_caf')
+	compile project(':kotlin_caf')
 
-    kapt "org.androidannotations:androidannotations:$AAVersion"
-    implementation "org.androidannotations:androidannotations-api:$AAVersion"
+	kapt "org.androidannotations:androidannotations:$AAVersion"
+	implementation "org.androidannotations:androidannotations-api:$AAVersion"
 
-    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
-    implementation "com.google.dagger:dagger:$daggerVersion"
-    provided 'org.glassfish:javax.annotation:10.0-b28'
+	kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+	implementation "com.google.dagger:dagger:$daggerVersion"
+	provided 'org.glassfish:javax.annotation:10.0-b28'
 
-    implementation "com.android.support:multidex:1.0.3"
-    implementation "com.onesignal:OneSignal:3.8.4"
-    implementation "com.google.code.gson:gson:2.8.0"
+	implementation "com.android.support:multidex:1.0.3"
+	implementation "com.onesignal:OneSignal:[3.8.4, 3.9.9]"
+	implementation "com.google.code.gson:gson:2.8.0"
+
+	//MVP
+	compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
+	compile 'com.hannesdorfmann.mosby:viewstate:2.0.1'
+
 }

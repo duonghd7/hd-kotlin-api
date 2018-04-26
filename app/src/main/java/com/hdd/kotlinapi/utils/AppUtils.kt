@@ -3,6 +3,7 @@ package com.hdd.kotlinapi.utils
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.net.ConnectivityManager
 import android.support.annotation.UiThread
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,12 @@ import com.orhanobut.hawk.Hawk
 
 @SuppressLint("ClickableViewAccessibility")
 object AppUtils {
+
+    fun isConnectedToNetwork(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnected
+    }
 
     /*
     * hide keyboard when press to out input view
