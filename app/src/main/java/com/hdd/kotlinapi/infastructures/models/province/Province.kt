@@ -5,4 +5,4 @@ package com.hdd.kotlinapi.infastructures.models.province
  * @author duonghd
  */
 
-class Province(val id: Int, val name: String, val avatar: String)
+class Province(private val id: Int, private val name: String, private val avatar: String)

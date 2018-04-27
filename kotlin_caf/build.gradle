@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		kotlin_cafVersion = [
+		kotlin_caf = [
 				buildGradle          : "3.0.1",
 				retrolambda          : "3.2.5",
 				compileSdkVersion    : 26,
@@ -21,7 +21,12 @@ buildscript {
 				hawk                 : "1.23",
 				cicerone             : "1.2.1",
 				logentries           : "logentries-android-4.4.1",
-				eventbus             : "3.0.0"
+				eventbus             : "3.0.0",
+
+				mosby3               : "3.1.0",
+				rx2JavaVersion       : "2.1.6",
+				rx2AndroidVersion    : "2.0.1",
+				butterKnifeVersion   : "8.8.1"
 		]
 	}
 
@@ -32,8 +37,8 @@ buildscript {
 	}
 
 	dependencies {
-		classpath "com.android.tools.build:gradle:${kotlin_cafVersion.buildGradle}"
-		classpath "me.tatarka:gradle-retrolambda:${kotlin_cafVersion.retrolambda}"
+		classpath "com.android.tools.build:gradle:${kotlin_caf.buildGradle}"
+		classpath "me.tatarka:gradle-retrolambda:${kotlin_caf.retrolambda}"
 	}
 }
 
@@ -42,11 +47,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-	compileSdkVersion kotlin_cafVersion.compileSdkVersion
+	compileSdkVersion kotlin_caf.compileSdkVersion
 
 	defaultConfig {
-		minSdkVersion kotlin_cafVersion.minSdkVersion
-		targetSdkVersion kotlin_cafVersion.targetSdkVersion
+		minSdkVersion kotlin_caf.minSdkVersion
+		targetSdkVersion kotlin_caf.targetSdkVersion
 		versionCode 1
 		versionName "1.0"
 	}
@@ -69,27 +74,37 @@ dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
 	//Rest client
-	compile "com.google.code.gson:gson:${kotlin_cafVersion.gson}"
-	compile "com.squareup.okhttp3:okhttp:${kotlin_cafVersion.okhttp}"
-	compile "com.squareup.retrofit2:retrofit:${kotlin_cafVersion.retrofit}"
-	compile "com.squareup.retrofit2:converter-gson:${kotlin_cafVersion.retrofitConverterGson}"
-	compile "com.squareup.retrofit2:adapter-rxjava:${kotlin_cafVersion.retrofitAdapterRxjava}"
+	compile "com.google.code.gson:gson:${kotlin_caf.gson}"
+	compile "com.squareup.okhttp3:okhttp:${kotlin_caf.okhttp}"
+	compile "com.squareup.retrofit2:retrofit:${kotlin_caf.retrofit}"
+	compile "com.squareup.retrofit2:converter-gson:${kotlin_caf.retrofitConverterGson}"
+	compile "com.squareup.retrofit2:adapter-rxjava:${kotlin_caf.retrofitAdapterRxjava}"
 	//Async
-	compile "io.reactivex:rxandroid:${kotlin_cafVersion.rxAndroid}"
-	compile "io.reactivex:rxjava:${kotlin_cafVersion.rxJava}"
+	compile "io.reactivex:rxandroid:${kotlin_caf.rxAndroid}"
+	compile "io.reactivex:rxjava:${kotlin_caf.rxJava}"
 	//Dagger
-	kapt "com.google.dagger:dagger-compiler:${kotlin_cafVersion.daggerCompiler}"
-	compile "com.google.dagger:dagger:${kotlin_cafVersion.dagger}"
-	provided 'org.glassfish:javax.annotation:10.0-b28'
-	provided "javax.annotation:jsr250-api:${kotlin_cafVersion.jsr250Api}"
+	kapt "com.google.dagger:dagger-compiler:${kotlin_caf.daggerCompiler}"
+	compile "com.google.dagger:dagger:${kotlin_caf.dagger}"
+	provided "org.glassfish:javax.annotation:10.0-b28"
+	provided "javax.annotation:jsr250-api:${kotlin_caf.jsr250Api}"
 	//Date times
-	compile "com.jakewharton.threetenabp:threetenabp:${kotlin_cafVersion.threetenabp}"
+	compile "com.jakewharton.threetenabp:threetenabp:${kotlin_caf.threetenabp}"
 	//Logs
-	compile "com.github.LogentriesCommunity:le_android:${kotlin_cafVersion.logentries}"
+	compile "com.github.LogentriesCommunity:le_android:${kotlin_caf.logentries}"
 	//Pref storage
-	compile "com.github.orhanobut:hawk:${kotlin_cafVersion.hawk}"
+	compile "com.github.orhanobut:hawk:${kotlin_caf.hawk}"
 	//Cicerone
-	compile "ru.terrakok.cicerone:cicerone:${kotlin_cafVersion.cicerone}"
+	compile "ru.terrakok.cicerone:cicerone:${kotlin_caf.cicerone}"
 	//Messages
-	compile "org.greenrobot:eventbus:${kotlin_cafVersion.eventbus}"
+	compile "org.greenrobot:eventbus:${kotlin_caf.eventbus}"
+
+	//Mosby 3
+	compile "com.hannesdorfmann.mosby3:mvp:${kotlin_caf.mosby3}"
+	compile "com.hannesdorfmann.mosby3:viewstate:${kotlin_caf.mosby3}"
+	//Rx2
+	compile "io.reactivex.rxjava2:rxjava:${kotlin_caf.rx2JavaVersion}"
+	compile "io.reactivex.rxjava2:rxandroid:${kotlin_caf.rx2AndroidVersion}"
+	// ButterKnife
+	implementation "com.jakewharton:butterknife:${kotlin_caf.butterKnifeVersion}"
+	kapt "com.jakewharton:butterknife-compiler:${kotlin_caf.butterKnifeVersion}"
 }

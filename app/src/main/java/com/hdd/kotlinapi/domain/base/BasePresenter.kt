@@ -1,8 +1,7 @@
 package com.hdd.kotlinapi.domain.base
 
-import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
-import com.hannesdorfmann.mosby.mvp.MvpPresenter
-import com.hannesdorfmann.mosby.mvp.MvpView
+import com.hannesdorfmann.mosby3.mvp.MvpView
+import com.hdd.kotlin_caf.base.DBasePresenter
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import javax.inject.Inject
@@ -12,24 +11,4 @@ import javax.inject.Inject
  * @author duonghd
  */
 
-abstract class BasePresenter<V : MvpView> : MvpBasePresenter<V>(), MvpPresenter<V> {
-
-    @Inject
-    protected lateinit var eventBus: EventBus
-
-    @Inject
-    fun BasePresenter(eventBus: EventBus) {
-        this.eventBus = eventBus
-    }
-
-    @Subscribe
-    override fun attachView(view: V) {
-        super.attachView(view)
-        eventBus.register(this)
-    }
-
-    override fun detachView(retainInstance: Boolean) {
-        super.detachView(retainInstance)
-        eventBus.unregister(this)
-    }
-}
+abstract class BasePresenter<V : MvpView> : DBasePresenter<V>()

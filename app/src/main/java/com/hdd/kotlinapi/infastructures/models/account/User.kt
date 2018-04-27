@@ -11,29 +11,63 @@ class User(private var id: Int,
            private var username: String,
            private var email: String,
            private var avatar: String,
-           private var accessToken: String) : LoginResponse {
+           private var accessToken: String,
+           private var created_at: String,
+           private var updated_at: String) : LoginResponse {
+
+    fun getId(): Int {
+        return id
+    }
+
+    fun setId(id: Int) {
+        this.id = id
+    }
+
+    fun getAvatar(): String {
+        return avatar
+    }
+
+    fun setAvatar(avatar: String) {
+        this.avatar = avatar
+    }
+
+    fun getCreatedAt(): String {
+        return created_at
+    }
+
+    fun setCreatedAt(created_at: String) {
+        this.created_at = created_at
+    }
+
+    fun getUpdatedAt(): String {
+        return updated_at
+    }
+
+    fun setUpdatedAt(updated_at: String) {
+        this.updated_at = updated_at
+    }
 
     override fun getUsername(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return username
     }
 
     override fun setUsername(username: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.username = username
     }
 
     override fun getEmail(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return email
     }
 
     override fun setEmail(email: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.email = email
     }
 
     override fun getAccessToken(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return accessToken
     }
 
     override fun setAccessToken(accessToken: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.accessToken = accessToken
     }
 }

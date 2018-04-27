@@ -8,4 +8,6 @@ interface LoginActivityModel {
     fun onGoSignInClick()
 
     fun onGoSignUpClick()
+
+    fun onUpdateGcmToken()
 }

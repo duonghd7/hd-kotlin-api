@@ -12,7 +12,7 @@ import dagger.Provides
  */
 
 @Module
-class ActivityModule(val activity: Activity) {
+class ActivityModule(private val activity: Activity) {
     @Provides
     @ActivityScope
     fun provideContext(): Context {

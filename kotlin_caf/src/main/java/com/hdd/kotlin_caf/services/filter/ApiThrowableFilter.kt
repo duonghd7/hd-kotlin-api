@@ -49,11 +49,11 @@ open class ApiThrowableFilter<T> : Filter<Throwable, Observable<T>> {
                 return Observable.error(StaticApiThrowable.from(responseCode, "Response Error Body is empty"))
             } else {
                 var rawString = ""
-                try {
+                return try {
                     rawString = failedResponse.string()
-                    return Observable.error(onHandleFailedResponse(responseCode, rawString))
+                    Observable.error(onHandleFailedResponse(responseCode, rawString))
                 } catch (ex: Exception) {
-                    return Observable.error(StaticApiThrowable.from(ErrorCodes.GENERAL_ERROR, rawString, ex))
+                    Observable.error(StaticApiThrowable.from(ErrorCodes.GENERAL_ERROR, rawString, ex))
                 }
             }
         }

@@ -103,4 +103,13 @@ dependencies {
 	compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
 	compile 'com.hannesdorfmann.mosby:viewstate:2.0.1'
 
+	//Mosby 3
+	compile 'com.hannesdorfmann.mosby3:mvp:3.1.0'
+	compile 'com.hannesdorfmann.mosby3:viewstate:3.1.0'
+	//Rx2
+	compile "io.reactivex.rxjava2:rxjava:2.1.6"
+	compile "io.reactivex.rxjava2:rxandroid:2.0.1"
+	//ButterKnife
+	implementation "com.jakewharton:butterknife:8.8.1"
+	kapt "com.jakewharton:butterknife-compiler:8.8.1"
 }

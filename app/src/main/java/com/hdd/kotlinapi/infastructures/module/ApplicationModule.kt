@@ -9,12 +9,16 @@ import com.hdd.kotlinapi.ApiURL
 import com.hdd.kotlinapi.services.authentication.AuthenticationService
 import com.hdd.kotlinapi.services.authentication.DefaultAuthenticationService
 import com.hdd.kotlinapi.services.authentication.RestAuthenticationService
+import com.hdd.kotlinapi.services.gcm.DefaultGcmService
+import com.hdd.kotlinapi.services.gcm.GcmService
+import com.hdd.kotlinapi.services.gcm.RestGcmService
 import com.hdd.kotlinapi.services.province.DefaultProvinceService
 import com.hdd.kotlinapi.services.province.ProvinceService
 import com.hdd.kotlinapi.services.province.RestProvinceService
 import com.hdd.kotlinapi.utils.Constants
 import dagger.Module
 import dagger.Provides
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Created on 2/28/2018.
@@ -22,7 +26,7 @@ import dagger.Provides
  */
 
 @Module
-class ApplicationModule(val app: Application) {
+class ApplicationModule(private val app: Application) {
 /*    @Provides
     @ApplicationScope
     fun provideContext(): Context {
@@ -37,8 +41,21 @@ class ApplicationModule(val app: Application) {
 
     @Provides
     @ApplicationScope
+    fun providesEventBus(): EventBus {
+        return EventBus.getDefault()
+    }
+
+    @Provides
+    @ApplicationScope
     fun provideNetworkProvider(): NetworkProvider {
         return DefaultNetworkProvider(app, ApiURL.ROOT_URL)
+    }
+
+    @Provides
+    @ApplicationScope
+    fun provideGcmService(networkProvider: NetworkProvider): GcmService {
+        val restGcmService = networkProvider.provideApi(RestGcmService::class.java)
+        return DefaultGcmService(networkProvider, restGcmService)
     }
 
     @Provides
