@@ -48,7 +48,7 @@ class ApplicationModule(private val app: Application) {
     @Provides
     @ApplicationScope
     fun provideNetworkProvider(): NetworkProvider {
-        return DefaultNetworkProvider(app, ApiURL.ROOT_URL)
+        return DefaultNetworkProvider(app, ApiURL.ROOT_URL,10)
     }
 
     @Provides

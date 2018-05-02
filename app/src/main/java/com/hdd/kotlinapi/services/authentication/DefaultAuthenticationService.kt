@@ -30,8 +30,7 @@ open class DefaultAuthenticationService(
         TODO("not implemented")
     }
 
-    override fun logout(): String {
-        this.setLoginResponse(null)
-        return if (this.getLoginResponse() == null) "Logout success" else "Logout fail"
+    override fun logout(): Observable<String> {
+        return networkProvider.transformResponse(restAuthenticationService.logout(this.getLoginResponse()!!.getAccessToken()))
     }
 }

@@ -2,10 +2,12 @@ package com.hdd.kotlinapi.domain.login.fragment.sign_in
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.widget.EditText
 import com.hdd.kotlinapi.MainApplication
 import com.hdd.kotlinapi.R
 import com.hdd.kotlinapi.domain.base.BaseFragment
+import com.hdd.kotlinapi.domain.home.HomeActivity_
 import com.hdd.kotlinapi.domain.login.LoginActivityModel
 import com.hdd.kotlinapi.infastructures.models.account.LoginRequestBody
 import com.hdd.kotlinapi.infastructures.module.ActivityModule
@@ -75,5 +77,10 @@ open class SignInFragment : BaseFragment<SignInView, SignInPresenter>(), SignInV
 
     override fun loginSuccess() {
         loginActivityModel.onUpdateGcmToken()
+        HomeActivity_.intent(context)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                .start()
+
+        activity?.finish()
     }
 }

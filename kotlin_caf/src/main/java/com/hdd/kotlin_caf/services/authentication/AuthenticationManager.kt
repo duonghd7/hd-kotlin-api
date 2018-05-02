@@ -25,5 +25,5 @@ interface AuthenticationManager<
 
     fun loginSocial(tLoginSocialRequest: TLoginSocialRequest): Observable<TLoginResponse>
 
-    fun logout(): String
+    fun logout(): Observable<String>
 }

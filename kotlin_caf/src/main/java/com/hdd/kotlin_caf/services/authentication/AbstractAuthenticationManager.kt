@@ -13,7 +13,7 @@ import com.orhanobut.hawk.Hawk
 abstract class AbstractAuthenticationManager<
         TLoginResponse : LoginResponse,
         TLoginRequest : LoginRequest,
-        TLoginSocialRequest : LoginSocialRequest>(val configuration: AuthenticationManagerConfiguration)
+        TLoginSocialRequest : LoginSocialRequest>(private val configuration: AuthenticationManagerConfiguration)
     : AuthenticationManager<TLoginResponse, TLoginRequest, TLoginSocialRequest> {
 
     private var tLoginResponse: TLoginResponse? = null

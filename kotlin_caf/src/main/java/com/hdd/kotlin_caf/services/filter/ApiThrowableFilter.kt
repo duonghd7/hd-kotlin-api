@@ -16,7 +16,6 @@ import rx.Observable
  * @author duonghd
  */
 
-
 open class ApiThrowableFilter<T> : Filter<Throwable, Observable<T>> {
 
     private fun onHandleFailedResponse(responseCode: Int, rawString: String): ApiThrowable {
@@ -57,6 +56,6 @@ open class ApiThrowableFilter<T> : Filter<Throwable, Observable<T>> {
                 }
             }
         }
-        return Observable.error(Throwable(source))
+        return Observable.error(source)
     }
 }
