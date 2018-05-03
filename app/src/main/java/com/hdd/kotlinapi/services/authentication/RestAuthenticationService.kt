@@ -14,6 +14,7 @@ import rx.Observable
  */
 
 interface RestAuthenticationService {
+
     @POST("/api/auth/sign-in")
     fun login(@Body bodyRequest: LoginRequestBody): Observable<RestMessageResponse<User>>
 

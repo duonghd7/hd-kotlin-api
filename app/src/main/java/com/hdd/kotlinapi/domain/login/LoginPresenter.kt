@@ -8,6 +8,7 @@ import com.hdd.kotlinapi.infastructures.models.gcm.GcmBody
 import com.hdd.kotlinapi.services.authentication.AuthenticationService
 import com.hdd.kotlinapi.services.gcm.GcmService
 import com.hdd.kotlinapi.utils.AppUtils
+import rx.Subscription
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import javax.inject.Inject
@@ -24,8 +25,11 @@ open class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
     @Inject
     protected lateinit var authService: AuthenticationService
 
+    private var subscription: Subscription? = null
+
     fun clearGcm() {
-        gcmService.clearGcmToken(GcmBody(AppUtils.getDeviceToken(), "android"))
+        onStop(subscription)
+        subscription = gcmService.clearGcmToken(GcmBody(AppUtils.getDeviceToken(), "android"))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ _ ->
@@ -41,21 +45,26 @@ open class LoginPresenter @Inject constructor() : BasePresenter<LoginView>() {
     }
 
     fun updateGcm() {
-        val user: User? = authService.getLoginResponse()
-        if (user != null) {
-            gcmService.updateGcmToken(user.getAccessToken(), GcmBody(AppUtils.getDeviceToken(), "android"))
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ _ ->
-                        ifViewAttached {
-                            view.updateGcmSuccess()
-                        }
-                    }, { it: Throwable? ->
-                        val throwable: Throwable = it as ApiThrowable
-                        ifViewAttached {
-                            view.apiError(throwable)
-                        }
-                    })
+        val user: User = authService.getLoginResponse()!!
+        onStop(subscription)
+        subscription = gcmService.updateGcmToken(user.getAccessToken(), GcmBody(AppUtils.getDeviceToken(), "android"))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ _ ->
+                    ifViewAttached {
+                        view.updateGcmSuccess()
+                    }
+                }, { it: Throwable? ->
+                    val throwable: Throwable = it as ApiThrowable
+                    ifViewAttached {
+                        view.apiError(throwable)
+                    }
+                })
+    }
+
+    private fun onStop(subscription: Subscription?) {
+        if (subscription != null && !subscription.isUnsubscribed) {
+            subscription.unsubscribe()
         }
     }
 }

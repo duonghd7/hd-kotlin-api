@@ -1,6 +1,7 @@
 package com.hdd.kotlinapi.infastructures.models.account
 
 import com.hdd.kotlin_caf.services.authentication.model.LoginResponse
+import java.io.Serializable
 
 /**
  * Created on 3/1/2018.
@@ -13,7 +14,7 @@ class User(private var id: Int,
            private var avatar: String,
            private var accessToken: String,
            private var created_at: String,
-           private var updated_at: String) : LoginResponse {
+           private var updated_at: String) : LoginResponse, Serializable {
 
     fun getId(): Int {
         return id

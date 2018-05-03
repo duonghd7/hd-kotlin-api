@@ -28,7 +28,6 @@ class HomePresenter @Inject constructor() : BasePresenter<HomeView>() {
     }
 
     fun logout(){
-        view.showLoading()
         authService.logout()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

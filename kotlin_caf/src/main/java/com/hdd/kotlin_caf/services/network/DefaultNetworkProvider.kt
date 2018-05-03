@@ -27,7 +27,7 @@ open class DefaultNetworkProvider(context: Context, baseUrl: String, netTimeout:
     private var retrofit: Retrofit
 
     init {
-        val builder: OkHttpClient.Builder = OkHttpClient.Builder()
+        val builder = OkHttpClient.Builder()
         builder.connectTimeout(netTimeout, TimeUnit.SECONDS)
         builder.readTimeout(netTimeout, TimeUnit.SECONDS)
         builder.writeTimeout(netTimeout, TimeUnit.SECONDS)
@@ -46,15 +46,14 @@ open class DefaultNetworkProvider(context: Context, baseUrl: String, netTimeout:
 
             val requestBody = request.body()
             if (requestBody != null) {
-                requestStartMessage = String.format("%s\nContent-Type: %s\nContent-Length: %s\nContent-Body: %s",
+                requestStartMessage = String.format("%s\nContent-Header:: %sContent-Type:: %s\nContent-Length:: %s\nContent-Body:: %s",
                         requestStartMessage,
+                        if (request.headers().toString().isEmpty()) "\n" else request.headers(),
                         requestBody.contentType(),
                         requestBody.contentLength(),
-                        bufferRequest.readUtf8())
+                        if (bufferRequest.readUtf8().isEmpty()) null else bufferRequest.readUtf8())
             }
-
             Log.i("INFO", requestStartMessage)
-            chain.proceed(requestBuilder)
 
             val startNs = System.nanoTime()
             val response = chain.proceed(request)

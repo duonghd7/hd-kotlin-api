@@ -61,7 +61,6 @@ open class HomeActivity : BaseActivity<HomeView, HomePresenter>(), HomeView {
             LoginActivity_.intent(this)
                     .flags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     .start()
-
             finish()
         }
 
@@ -75,12 +74,15 @@ open class HomeActivity : BaseActivity<HomeView, HomePresenter>(), HomeView {
     }
 
     @Click(R.id.activity_home_tv_logout)
-    fun logoutClick(){
-        homePresenter.logout()
+    fun logoutClick() {
+        presenter.logout()
     }
 
     override fun logoutSuccess() {
-
+        LoginActivity_.intent(this)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                .start()
+        finish()
     }
 
     override fun onBackPressed() {

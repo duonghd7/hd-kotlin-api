@@ -18,27 +18,6 @@ import rx.Observable
 
 open class ApiThrowableFilter<T> : Filter<Throwable, Observable<T>> {
 
-    private fun onHandleFailedResponse(responseCode: Int, rawString: String): ApiThrowable {
-        try {
-            val gson = Gson()
-            val collectionType = object : TypeToken<RestMessageResponse<T>>() {}.type
-            val responseMessage: RestMessageResponse<RestErrorResponse> = gson.fromJson(rawString, collectionType)
-
-            val errors: List<RestErrorResponse> = responseMessage.errors
-            if (errors.isEmpty()) {
-                return StaticApiThrowable.from(responseCode, rawString)
-            } else {
-                var errorResult: List<ServiceResultError> = mutableListOf<ServiceResultError>()
-                for (error: RestErrorResponse in errors) {
-                    errorResult += ServiceResultError(error.errorCode, error.errorMessage, Exception(error.errorMessage))
-                }
-                return StaticApiThrowable.from(errorResult)
-            }
-        } catch (ex: Exception) {
-            return StaticApiThrowable.from(ex)
-        }
-    }
-
     override fun execute(source: Throwable): Observable<T> {
         if (source is HttpException) {
             val failedResponse = source.response().errorBody()
@@ -57,5 +36,26 @@ open class ApiThrowableFilter<T> : Filter<Throwable, Observable<T>> {
             }
         }
         return Observable.error(source)
+    }
+
+    private fun onHandleFailedResponse(responseCode: Int, rawString: String): ApiThrowable {
+        try {
+            val gson = Gson()
+            val collectionType = object : TypeToken<RestMessageResponse<T>>() {}.type
+            val responseMessage: RestMessageResponse<RestErrorResponse> = gson.fromJson(rawString, collectionType)
+
+            val errors: List<RestErrorResponse> = responseMessage.errors
+            if (errors.isEmpty()) {
+                return StaticApiThrowable.from(responseCode, rawString)
+            } else {
+                var errorResult: List<ServiceResultError> = mutableListOf()
+                for (error: RestErrorResponse in errors) {
+                    errorResult += ServiceResultError(error.errorCode, error.errorMessage, Exception(error.errorMessage))
+                }
+                return StaticApiThrowable.from(errorResult)
+            }
+        } catch (ex: Exception) {
+            return StaticApiThrowable.from(ex)
+        }
     }
 }

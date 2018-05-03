@@ -11,7 +11,7 @@ import rx.Observable
  */
 
 
-open class NetworkFilter<T>(val networkProvider: NetworkProvider) : Filter<Throwable, Observable<T>> {
+open class NetworkFilter<T>(private val networkProvider: NetworkProvider) : Filter<Throwable, Observable<T>> {
 
     override fun execute(source: Throwable): Observable<T> {
         return if (!networkProvider.isNetworkAvailable()) {
