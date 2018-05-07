@@ -27,12 +27,32 @@ class HomePresenter @Inject constructor() : BasePresenter<HomeView>() {
         return authService.getLoginResponse()
     }
 
-    fun logout(){
-        authService.logout()
+    fun authMe() {
+        authService.authMe()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { ifViewAttached { view -> view.showLoading() } }
                 .subscribe({ it ->
+                    val user = it
+                    ifViewAttached {
+                        view.hideLoading()
+                        view.authMeSuccess(user)
+                    }
+                }, { it: Throwable? ->
+                    val throwable: Throwable = it as ApiThrowable
+                    ifViewAttached {
+                        view.hideLoading()
+                        view.apiError(throwable)
+                    }
+                })
+    }
+
+    fun logout() {
+        authService.logout()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe { ifViewAttached { view -> view.showLoading() } }
+                .subscribe({ _ ->
                     ifViewAttached {
                         view.hideLoading()
                         view.logoutSuccess()

@@ -49,6 +49,15 @@ apply plugin: 'kotlin-kapt'
 android {
 	compileSdkVersion kotlin_caf.compileSdkVersion
 
+	libraryVariants.all { variant ->
+		variant.outputs.all { output ->
+			outputFileName = "caf" +
+					"-${variant.productFlavors[0]}" +
+					"-${variant.buildType.name}" +
+					".aar"
+		}
+	}
+
 	defaultConfig {
 		minSdkVersion kotlin_caf.minSdkVersion
 		targetSdkVersion kotlin_caf.targetSdkVersion
@@ -67,6 +76,7 @@ android {
 		sourceCompatibility JavaVersion.VERSION_1_8
 		targetCompatibility JavaVersion.VERSION_1_8
 	}
+	buildToolsVersion '26.0.2'
 }
 
 dependencies {

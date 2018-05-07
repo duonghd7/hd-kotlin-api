@@ -44,8 +44,8 @@ open class MainApplication : MultiDexApplication() {
         OneSignal.idsAvailable({ userId, registrationId ->
             if (registrationId != null && Hawk.isBuilt()) {
                 Hawk.put(UNIQUE_KEY_DEVICE_ID, registrationId)
-                Log.d("debug", "userId: $userId")
-                Log.d("debug", "registrationId: $registrationId")
+                Log.i("gcm", "userId: $userId")
+                Log.i("gcm", "registrationId: $registrationId")
             }
         })
     }

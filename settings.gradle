@@ -1,1 +1,2 @@
 include ':app', ':kotlin_caf'
+project(':kotlin_caf').projectDir = new File('kotlin_caf')

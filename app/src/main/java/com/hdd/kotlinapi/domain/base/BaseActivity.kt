@@ -1,5 +1,6 @@
 package com.hdd.kotlinapi.domain.base
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -17,8 +18,10 @@ import org.androidannotations.annotations.EActivity
  * @author duonghd
  */
 
+@SuppressLint("Registered")
 @EActivity
 abstract class BaseActivity<V : MvpView, P : MvpPresenter<V>> : DBaseActivity<V, P>() {
+    private var loadingDialog: LoadingDialog? = null
 
     private val networkChangeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -33,11 +36,20 @@ abstract class BaseActivity<V : MvpView, P : MvpPresenter<V>> : DBaseActivity<V,
     }
 
     override fun showHUD() {
-        Toast.makeText(this, "Show loading!", Toast.LENGTH_SHORT).show()
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog(this)
+            loadingDialog!!.setCancelable(false)
+            loadingDialog!!.setCanceledOnTouchOutside(false)
+            loadingDialog!!.show()
+        } else if (!loadingDialog!!.isShowing) {
+            loadingDialog!!.show()
+        }
     }
 
     override fun hideHUD() {
-        Toast.makeText(this, "Hide loading!", Toast.LENGTH_SHORT).show()
+        if (loadingDialog != null && loadingDialog!!.isShowing) {
+            loadingDialog!!.dismiss()
+        }
     }
 
     override fun showError(throwable: Throwable) {

@@ -78,7 +78,7 @@ open class SignInFragment : BaseFragment<SignInView, SignInPresenter>(), SignInV
     override fun loginSuccess() {
         loginActivityModel.onUpdateGcmToken()
         HomeActivity_.intent(context)
-                .flags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 .start()
 
         activity?.finish()

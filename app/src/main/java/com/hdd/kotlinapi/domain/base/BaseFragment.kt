@@ -6,7 +6,6 @@ import android.content.Intent
 import android.widget.Toast
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter
 import com.hannesdorfmann.mosby3.mvp.MvpView
-import com.hdd.kotlin_caf.base.DBaseActivity
 import com.hdd.kotlin_caf.base.DBaseFragment
 import com.hdd.kotlin_caf.exceptions.ApiThrowable
 import com.hdd.kotlinapi.R
@@ -20,6 +19,7 @@ import org.androidannotations.annotations.EFragment
 
 @EFragment
 abstract class BaseFragment<V : MvpView, P : MvpPresenter<V>> : DBaseFragment<V, P>() {
+    private var loadingDialog: LoadingDialog? = null
 
     private val networkChangeReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -34,11 +34,20 @@ abstract class BaseFragment<V : MvpView, P : MvpPresenter<V>> : DBaseFragment<V,
     }
 
     override fun showHUD() {
-        Toast.makeText(context, "Show loading!", Toast.LENGTH_SHORT).show()
+        if (loadingDialog == null) {
+            loadingDialog = LoadingDialog(context)
+            loadingDialog!!.setCancelable(false)
+            loadingDialog!!.setCanceledOnTouchOutside(false)
+            loadingDialog!!.show()
+        } else if (!loadingDialog!!.isShowing) {
+            loadingDialog!!.show()
+        }
     }
 
     override fun hideHUD() {
-        Toast.makeText(context, "Hide loading!", Toast.LENGTH_SHORT).show()
+        if (loadingDialog != null && loadingDialog!!.isShowing) {
+            loadingDialog!!.dismiss()
+        }
     }
 
     override fun showError(throwable: Throwable) {

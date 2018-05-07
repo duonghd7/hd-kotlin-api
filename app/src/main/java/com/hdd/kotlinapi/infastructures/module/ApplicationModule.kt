@@ -15,6 +15,7 @@ import com.hdd.kotlinapi.services.gcm.RestGcmService
 import com.hdd.kotlinapi.services.province.DefaultProvinceService
 import com.hdd.kotlinapi.services.province.ProvinceService
 import com.hdd.kotlinapi.services.province.RestProvinceService
+import com.hdd.kotlinapi.utils.ApiErrorFilter
 import com.hdd.kotlinapi.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -27,6 +28,9 @@ import org.greenrobot.eventbus.EventBus
 
 @Module
 class ApplicationModule(private val app: Application) {
+
+    private val authenticationManagerConfiguration = AuthenticationManagerConfiguration(Constants.KEY_USER_AUTH, true)
+
 /*    @Provides
     @ApplicationScope
     fun provideContext(): Context {
@@ -48,7 +52,7 @@ class ApplicationModule(private val app: Application) {
     @Provides
     @ApplicationScope
     fun provideNetworkProvider(): NetworkProvider {
-        return DefaultNetworkProvider(app, ApiURL.ROOT_URL,10)
+        return DefaultNetworkProvider(app, ApiURL.ROOT_URL,10).setApiErrorFilter(ApiErrorFilter(app,authenticationManagerConfiguration))
     }
 
     @Provides
@@ -63,7 +67,7 @@ class ApplicationModule(private val app: Application) {
     fun provideAuthenticationService(networkProvider: NetworkProvider): AuthenticationService {
         val restAuthenticationService = networkProvider.provideApi(RestAuthenticationService::class.java)
         return DefaultAuthenticationService(networkProvider, restAuthenticationService,
-                AuthenticationManagerConfiguration(Constants.KEY_USER_AUTH, true))
+                authenticationManagerConfiguration)
     }
 
     @Provides

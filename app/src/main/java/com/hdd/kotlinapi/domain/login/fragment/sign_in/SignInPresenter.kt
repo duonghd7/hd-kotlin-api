@@ -24,7 +24,7 @@ open class SignInPresenter @Inject constructor() : BasePresenter<SignInView>() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe { ifViewAttached { view -> view.showLoading() } }
-                .subscribe({ it ->
+                .subscribe({ _ ->
                     ifViewAttached {
                         view.hideLoading()
                         view.loginSuccess()

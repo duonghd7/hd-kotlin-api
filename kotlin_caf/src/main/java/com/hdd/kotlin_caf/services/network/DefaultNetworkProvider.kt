@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.hdd.kotlin_caf.services.common.RestMessageResponse
 import com.hdd.kotlin_caf.services.filter.ApiThrowableFilter
+import com.hdd.kotlin_caf.services.filter.InterceptFilter
 import com.hdd.kotlin_caf.services.filter.NetworkFilter
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
@@ -23,8 +24,10 @@ import java.util.concurrent.TimeUnit
  */
 
 open class DefaultNetworkProvider(context: Context, baseUrl: String, netTimeout: Long = 120) : AbstractNetworkProvider(context), NetworkProvider {
+
     private val UTF8 = Charset.forName("UTF-8")
     private var retrofit: Retrofit
+    private var apiErrorFilter: InterceptFilter? = null
 
     init {
         val builder = OkHttpClient.Builder()
@@ -102,12 +105,18 @@ open class DefaultNetworkProvider(context: Context, baseUrl: String, netTimeout:
         return retrofit.create(apiClass)
     }
 
+    override fun setApiErrorFilter(apiErrorFilter: InterceptFilter): NetworkProvider {
+        this.apiErrorFilter = apiErrorFilter
+        return this
+    }
+
     override fun <TResponse : RestMessageResponse<TResult>, TResult> transformResponse(call: Observable<TResponse>): Observable<TResult> {
 
         val res: Observable<TResult> = call
                 .observeOn(Schedulers.computation())
                 .onErrorResumeNext { throwable -> NetworkFilter<TResponse>(this).execute(throwable) }
                 .onErrorResumeNext { throwable -> ApiThrowableFilter<TResponse>().execute(throwable) }
+                .compose(apiErrorFilter?.execute())
                 .flatMap { tResponse -> Observable.just(tResponse.data) }
 
         return res.onExceptionResumeNext(Observable.empty())

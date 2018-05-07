@@ -20,4 +20,7 @@ interface RestAuthenticationService {
 
     @POST("/api/auth/sign-out")
     fun logout(@Header("access-token") accessToken: String): Observable<RestMessageResponse<String>>
+
+    @POST("/api/auth/me")
+    fun authMe(@Header("access-token") accessToken: String): Observable<RestMessageResponse<User>>
 }

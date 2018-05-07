@@ -2,6 +2,8 @@ package com.hdd.kotlinapi.domain.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
+import android.support.v4.widget.SwipeRefreshLayout
 import android.widget.TextView
 import com.google.gson.Gson
 import com.hdd.kotlinapi.MainApplication
@@ -22,7 +24,8 @@ import javax.inject.Inject
 @EActivity(R.layout.activity_home)
 open class HomeActivity : BaseActivity<HomeView, HomePresenter>(), HomeView {
 
-
+    @ViewById(R.id.activity_home_srl_refresh)
+    protected lateinit var srlRefresh: SwipeRefreshLayout
     @ViewById(R.id.activity_home_tv_user_info)
     protected lateinit var tvUserInfo: TextView
 
@@ -59,12 +62,23 @@ open class HomeActivity : BaseActivity<HomeView, HomePresenter>(), HomeView {
     fun init() {
         if (!presenter.isLogined()) {
             LoginActivity_.intent(this)
-                    .flags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    .flags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     .start()
             finish()
+        } else {
+            presenter.authMe()
         }
 
         setupUI(presenter.getUserInfo())
+
+        srlRefresh.setColorSchemeColors(
+                Color.parseColor("#ff0000"),
+                Color.parseColor("#00ff00"),
+                Color.parseColor("#0000ff"))
+        srlRefresh.setOnRefreshListener {
+            srlRefresh.isRefreshing = false
+            presenter.authMe()
+        }
     }
 
     private fun setupUI(user: User?) {
@@ -78,9 +92,13 @@ open class HomeActivity : BaseActivity<HomeView, HomePresenter>(), HomeView {
         presenter.logout()
     }
 
+    override fun authMeSuccess(user: User) {
+        setupUI(user)
+    }
+
     override fun logoutSuccess() {
         LoginActivity_.intent(this)
-                .flags(Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                .flags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 .start()
         finish()
     }
