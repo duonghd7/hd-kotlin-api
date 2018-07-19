@@ -3,10 +3,10 @@ buildscript {
 		kotlin_caf = [
 				buildGradle          : "3.0.1",
 				retrolambda          : "3.2.5",
-				compileSdkVersion    : 26,
-				buildToolsVersion    : "26.0.1",
-				minSdkVersion        : 16,
-				targetSdkVersion     : 26,
+				compileSdkVersion    : 27,
+				buildToolsVersion    : "27.0.3",
+				minSdkVersion        : 19,
+				targetSdkVersion     : 27,
 				gson                 : "2.8.0",
 				okhttp               : "3.8.1",
 				retrofit             : "2.1.0",
@@ -76,44 +76,44 @@ android {
 		sourceCompatibility JavaVersion.VERSION_1_8
 		targetCompatibility JavaVersion.VERSION_1_8
 	}
-	buildToolsVersion '26.0.2'
+	buildToolsVersion '27.0.3'
 }
 
 dependencies {
-	compile fileTree(dir: 'libs', include: ['*.jar'])
-	compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
 	//Rest client
-	compile "com.google.code.gson:gson:${kotlin_caf.gson}"
-	compile "com.squareup.okhttp3:okhttp:${kotlin_caf.okhttp}"
-	compile "com.squareup.retrofit2:retrofit:${kotlin_caf.retrofit}"
-	compile "com.squareup.retrofit2:converter-gson:${kotlin_caf.retrofitConverterGson}"
-	compile "com.squareup.retrofit2:adapter-rxjava:${kotlin_caf.retrofitAdapterRxjava}"
+	implementation "com.google.code.gson:gson:${kotlin_caf.gson}"
+	implementation "com.squareup.okhttp3:okhttp:${kotlin_caf.okhttp}"
+	implementation "com.squareup.retrofit2:retrofit:${kotlin_caf.retrofit}"
+	implementation "com.squareup.retrofit2:converter-gson:${kotlin_caf.retrofitConverterGson}"
+	implementation "com.squareup.retrofit2:adapter-rxjava:${kotlin_caf.retrofitAdapterRxjava}"
 	//Async
-	compile "io.reactivex:rxandroid:${kotlin_caf.rxAndroid}"
-	compile "io.reactivex:rxjava:${kotlin_caf.rxJava}"
+	implementation "io.reactivex:rxandroid:${kotlin_caf.rxAndroid}"
+	implementation "io.reactivex:rxjava:${kotlin_caf.rxJava}"
 	//Dagger
 	kapt "com.google.dagger:dagger-compiler:${kotlin_caf.daggerCompiler}"
-	compile "com.google.dagger:dagger:${kotlin_caf.dagger}"
+	implementation "com.google.dagger:dagger:${kotlin_caf.dagger}"
 	provided "org.glassfish:javax.annotation:10.0-b28"
 	provided "javax.annotation:jsr250-api:${kotlin_caf.jsr250Api}"
 	//Date times
-	compile "com.jakewharton.threetenabp:threetenabp:${kotlin_caf.threetenabp}"
+	implementation "com.jakewharton.threetenabp:threetenabp:${kotlin_caf.threetenabp}"
 	//Logs
-	compile "com.github.LogentriesCommunity:le_android:${kotlin_caf.logentries}"
+	implementation "com.github.LogentriesCommunity:le_android:${kotlin_caf.logentries}"
 	//Pref storage
-	compile "com.github.orhanobut:hawk:${kotlin_caf.hawk}"
+	implementation "com.github.orhanobut:hawk:${kotlin_caf.hawk}"
 	//Cicerone
-	compile "ru.terrakok.cicerone:cicerone:${kotlin_caf.cicerone}"
+	implementation "ru.terrakok.cicerone:cicerone:${kotlin_caf.cicerone}"
 	//Messages
-	compile "org.greenrobot:eventbus:${kotlin_caf.eventbus}"
+	implementation "org.greenrobot:eventbus:${kotlin_caf.eventbus}"
 
 	//Mosby 3
-	compile "com.hannesdorfmann.mosby3:mvp:${kotlin_caf.mosby3}"
-	compile "com.hannesdorfmann.mosby3:viewstate:${kotlin_caf.mosby3}"
+	implementation "com.hannesdorfmann.mosby3:mvp:${kotlin_caf.mosby3}"
+	implementation "com.hannesdorfmann.mosby3:viewstate:${kotlin_caf.mosby3}"
 	//Rx2
-	compile "io.reactivex.rxjava2:rxjava:${kotlin_caf.rx2JavaVersion}"
-	compile "io.reactivex.rxjava2:rxandroid:${kotlin_caf.rx2AndroidVersion}"
+	implementation "io.reactivex.rxjava2:rxjava:${kotlin_caf.rx2JavaVersion}"
+	implementation "io.reactivex.rxjava2:rxandroid:${kotlin_caf.rx2AndroidVersion}"
 	// ButterKnife
 	implementation "com.jakewharton:butterknife:${kotlin_caf.butterKnifeVersion}"
 	kapt "com.jakewharton:butterknife-compiler:${kotlin_caf.butterKnifeVersion}"

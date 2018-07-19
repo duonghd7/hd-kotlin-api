@@ -35,7 +35,7 @@ abstract class BaseFragment<V : MvpView, P : MvpPresenter<V>> : DBaseFragment<V,
 
     override fun showHUD() {
         if (loadingDialog == null) {
-            loadingDialog = LoadingDialog(context)
+            loadingDialog = LoadingDialog(context!!)
             loadingDialog!!.setCancelable(false)
             loadingDialog!!.setCanceledOnTouchOutside(false)
             loadingDialog!!.show()

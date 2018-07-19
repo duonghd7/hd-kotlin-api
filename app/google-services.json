@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "932294846819",
+    "firebase_url": "https://hd-one-signal.firebaseio.com",
+    "project_id": "hd-one-signal",
+    "storage_bucket": "hd-one-signal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932294846819:android:b8fce11a5ae4779e",
+        "android_client_info": {
+          "package_name": "com.hdd.kotlinapi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932294846819-ic779m591pttb0cos4ibod6i77vcpr0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAACESvWxouW74gVIQRefNRq5-Yzzuj9k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932294846819:android:3b3f9d21ddedb955",
+        "android_client_info": {
+          "package_name": "com.hdd.kotlinapi.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932294846819-ic779m591pttb0cos4ibod6i77vcpr0f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAACESvWxouW74gVIQRefNRq5-Yzzuj9k"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

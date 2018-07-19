@@ -63,12 +63,12 @@ android {
 		}
 
 		LIVE {
-			applicationIdSuffix ".live"
+			applicationIdSuffix ""
 			dimension "default"
 			manifestPlaceholders = [
 					appName                        : "KOTLIN-LIVE",
-					onesignal_app_id               : '3f49b3f5-5bad-426b-9fc0-a75af95dbfb5',
-					onesignal_google_project_number: '144539400347'
+					onesignal_app_id               : 'fcf27883-99ab-492f-8e45-1c2074c4229c',
+					onesignal_google_project_number: '932294846819'
 			]
 		}
 	}
@@ -79,8 +79,6 @@ android {
 	}
 }
 
-def AAVersion = '4.4.0'
-def daggerVersion = '2.11'
 
 kapt {
 	generateStubs = true
@@ -88,6 +86,15 @@ kapt {
 		arg("resourcePackageName", android.defaultConfig.applicationId)
 	}
 }
+
+def AAVersion = '4.4.0'
+def daggerVersion = '2.11'
+def okhttp = "3.8.1"
+def retrofit = "2.1.0"
+def retrofitConverterGson = "2.1.0"
+def retrofitAdapterRxjava = "2.1.0"
+def hawkVersion = "1.23"
+def eventbusVersion = "3.0.0"
 
 dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -111,17 +118,29 @@ dependencies {
 	implementation "com.onesignal:OneSignal:[3.8.4, 3.9.9]"
 	implementation "com.google.code.gson:gson:2.8.0"
 
+	//Rest client
+	implementation "com.squareup.okhttp3:okhttp:$okhttp"
+	implementation "com.squareup.retrofit2:retrofit:$retrofit"
+	implementation "com.squareup.retrofit2:converter-gson:$retrofitConverterGson"
+	implementation "com.squareup.retrofit2:adapter-rxjava:$retrofitAdapterRxjava"
+
 	//MVP
-	compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
-	compile 'com.hannesdorfmann.mosby:viewstate:2.0.1'
+	implementation 'com.hannesdorfmann.mosby:mvp:2.0.1'
+	implementation 'com.hannesdorfmann.mosby:viewstate:2.0.1'
 
 	//Mosby 3
-	compile 'com.hannesdorfmann.mosby3:mvp:3.1.0'
-	compile 'com.hannesdorfmann.mosby3:viewstate:3.1.0'
+	implementation 'com.hannesdorfmann.mosby3:mvp:3.1.0'
+	implementation 'com.hannesdorfmann.mosby3:viewstate:3.1.0'
+	//Rx1
+	implementation "io.reactivex:rxandroid:1.2.0"
+	implementation "io.reactivex:rxjava:1.1.5"
 	//Rx2
-	compile "io.reactivex.rxjava2:rxjava:2.1.6"
-	compile "io.reactivex.rxjava2:rxandroid:2.0.1"
+	implementation "io.reactivex.rxjava2:rxjava:2.1.6"
+	implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
 	//ButterKnife
 	implementation "com.jakewharton:butterknife:8.8.1"
 	kapt "com.jakewharton:butterknife-compiler:8.8.1"
+
+	implementation "com.github.orhanobut:hawk:$hawkVersion"
+	implementation "org.greenrobot:eventbus:$eventbusVersion"
 }

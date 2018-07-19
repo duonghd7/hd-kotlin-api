@@ -23,5 +23,6 @@
 
         <activity android:name=".domain.retrofit.RetrofitActivity_"/>
         <activity android:name=".domain.login.LoginActivity_"/>
+        <activity android:name=".domain.MainActivity_"/>
     </application>
 </manifest>
